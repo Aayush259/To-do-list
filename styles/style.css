@@ -93,7 +93,6 @@ body.active {
 input {
     height: 40px;
     border: 1px solid var(--Light-gray);
-    color: var(--Cool-gray);
     border-radius: 0.5rem;
     font-size: 1.2rem;
     margin-top: 1rem;
@@ -188,5 +187,23 @@ input {
 @media only screen and (max-width: 550px) {
     input {
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #app {
+        padding: 0.5rem 0.3rem;
+    }
+
+    .output-container > .output {
+        font-size: 0.8rem;
+    }
+
+    .output-container > .output-bar {
+        font-size: 1rem;
+    }
+
+    .action-buttons {
+        gap: 0;
     }
 }
