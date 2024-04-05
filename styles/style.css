@@ -133,16 +133,31 @@ input {
 }
 
 .output-container > .output {
-    margin-top: 0.5rem;
+    margin-top: 0;
     border: 1px solid var(--Light-gray);
+    border-top: none;
+    border-bottom: none;
     padding: 0.5rem;
     font-size: 1.2rem;
-    border-radius: 0.3rem;
+    border-radius: 0;
     justify-content: space-between;
 }
 
-.output-container > .output:nth-child(1) {
-    margin-top: 0;
+.output-container > .output:nth-child(2) {
+    border-radius: 0.3rem 0.3rem 0 0;
+    border-top: 1px solid var(--Light-gray);
+}
+
+.output-container > .output:last-child {
+    border-radius: 0 0 0.3rem 0.3rem;
+    border-bottom: 1px solid var(--Light-gray);
+}
+
+.output-container > .output-bar {
+    justify-content: space-between;
+    font-size: 1.4rem;
+    border: 1px solid transparent;
+    padding: 0.5rem 1.6rem;
 }
 
 .task-name {
