@@ -66,6 +66,24 @@ const Add = () => {
         button.addEventListener('click', (event) => {
             event.target.closest('.output').remove();
         })
+    });
+
+    // Getting all buttons which will mark the task as completed.
+    const CompletedBtn = document.querySelectorAll('#completed');
+
+    // Adding event listener to each CompletedBtn so that when it is clicked, then it toggles the status between completed and pending and also toggles the image of the button respectively.
+    CompletedBtn.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const Status = button.parentElement.previousElementSibling;
+
+            if (button.querySelector('img').src.includes('tick')) {
+                button.querySelector('img').src = `./images/cross.png`;
+                Status.innerHTML = `Completed`;
+            } else {
+                button.querySelector('img').src = `./images/tick.png`;
+                Status.innerHTML = `Pending`;
+            }
+        })
     })
 }
 
