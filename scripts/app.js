@@ -57,6 +57,16 @@ const Add = () => {
     // Clearing the input fields.
     TaskDate.value = ``;
     InputTask.value = ``;
+
+    // Getting all delete buttons.
+    const DeleteBtn = document.querySelectorAll('#delete-btn');
+
+    // Adding event listeners to each buttons so that when it is clicked then remove that list item from the output-container.
+    DeleteBtn.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.target.closest('.output').remove();
+        })
+    })
 }
 
 // Adding click event listener to ThemeButton so that when it is clicked the theme of the app changes.
