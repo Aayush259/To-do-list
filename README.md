@@ -1,7 +1,7 @@
 # To-Do List Application
 
 ## Overview
-This is a simple yet powerful To-Do List application built with HTML, CSS, and JavaScript. It allows users to add tasks with due dates, mark tasks as completed, and delete tasks. It also features a theme toggle for light and dark modes.
+This is a simple yet powerful To-Do List application built with HTML, CSS, and JavaScript. It allows users to add tasks with due dates, mark tasks as completed, and delete tasks. It also features a theme toggle for light and dark modes. This app uses local storage to store the user's added task and theme preferences.
 
 ## Features
 - Add tasks with a due date
