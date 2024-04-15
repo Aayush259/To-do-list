@@ -40,7 +40,7 @@ const GetChildIndex = (parent, child) => {
 /*
     This function adds task in the output container.
 */
-const Add = (task, date) => {
+const Add = (task, date, status) => {
 
     // If the value of input task or task date is null then do nothing and return nothing.
     if (task === null || date === null) {
@@ -49,6 +49,12 @@ const Add = (task, date) => {
 
     // Getting Output Container.
     const OutputConatainer = document.querySelector(`.output-container`);
+
+    let image = `./images/tick.png`;
+
+    if (status === `Completed`) {
+        image = `./images/cross.png`;
+    }
 
     // Updating the task in the output container.
     if (task) {
@@ -59,11 +65,11 @@ const Add = (task, date) => {
                 <p>${date}</p>
             </div>
 
-            <div class="status">Pending</div>
+            <div class="status">${status}</div>
 
             <div class="action-buttons flex">
 
-                <button id="completed" class="flex"><img src="./images/tick.png" alt="Completed" height="30"></button>
+                <button id="completed" class="flex"><img src="${image}" alt="Completed" height="30"></button>
 
                 <button id="delete-btn" class="flex"><img src="./images/delete.png" alt="delete task" height="25"></button>
 
@@ -107,16 +113,19 @@ const Add = (task, date) => {
             if (RemovingChildIndex === 0) {
                 localStorage.removeItem(`task${RemovingChildIndex}`);
                 localStorage.removeItem(`date${RemovingChildIndex}`);
+                localStorage.removeItem(`status${RemovingChildIndex}`);
             }
 
             // Setting the task and date keys in localStorage object to the previous index from the deleted element index so that the flow of the array does not break.
             for (let i = RemovingChildIndex; i < currentId.length; i++) {
                 const Task = localStorage.getItem(`task${i+1}`);
                 const Date = localStorage.getItem(`date${i+1}`);
+                const Status = localStorage.getItem(`status${i+1}`);
 
                 if (Task !== null) {
                     localStorage.setItem(`task${RemovingChildIndex}`, `${Task}`);
                     localStorage.setItem(`date${RemovingChildIndex}`, `${Date}`);
+                    localStorage.setItem(`status${RemovingChildIndex}`, `${Status}`);
                 }
             }
 
@@ -129,6 +138,7 @@ const Add = (task, date) => {
             // Updating the last task and date keys from localStorage as they are the copy of their previous keys respectively.
             localStorage.removeItem(`task${currentId.length - 1}`);
             localStorage.removeItem(`date${currentId.length - 1}`);
+            localStorage.removeItem(`status${currentId.length - 1}`);
 
             // Updating the currentIdValue in local storage.
             localStorage.setItem(`currentIdValue`, `${currentIdValue}`);
@@ -146,12 +156,16 @@ const Add = (task, date) => {
         button.addEventListener('click', (event) => {
             const Status = button.parentElement.previousElementSibling;
 
+            const CompletedChildIndex = GetChildIndex(document.querySelector('.output-container'), event.target.closest('.output')) - 1;
+
             if (button.querySelector('img').src.includes('tick')) {
                 button.querySelector('img').src = `./images/cross.png`;
                 Status.innerHTML = `Completed`;
+                localStorage.setItem(`status${CompletedChildIndex}`, `Completed`);
             } else {
                 button.querySelector('img').src = `./images/tick.png`;
                 Status.innerHTML = `Pending`;
+                localStorage.setItem(`status${CompletedChildIndex}`, `Pending`);
             }
         })
     })
@@ -208,7 +222,8 @@ if (localStorage.getItem('currentIdValue')) {
     for (let i = 0; i <= currentIdValue; i++) {
         const Task = localStorage.getItem(`task${i}`);
         const Date = localStorage.getItem(`date${i}`);
-        Add(Task, Date);
+        const Status = localStorage.getItem(`status${i}`);
+        Add(Task, Date, Status);
     }
 } else {
     localStorage.setItem('currentIdValue', `0`);
@@ -223,6 +238,7 @@ AddButton.addEventListener('click', () => {
         // Add task and date in local storage.
         localStorage.setItem(`task${currentId[currentId.length - 1]}`, `${InputTask.value}`);
         localStorage.setItem(`date${currentId[currentId.length - 1]}`, `${TaskDate.value}`);
+        localStorage.setItem(`status${currentId[currentId.length - 1]}`, `Pending`);
 
         // Updating the currentId array and currentIdValue.
         currentId.push(currentId.length);
